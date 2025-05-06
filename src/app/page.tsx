@@ -277,6 +277,9 @@ export default function Home() {
   const [loadingProgress, setLoadingProgress] = useState(0);
   const loadingComplete = useRef(false);
   
+  // Video background loading state
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  
   // Original state declarations
   const [currentSection, setCurrentSection] = useState<Section>('home');
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -719,8 +722,14 @@ export default function Home() {
   // Render the appropriate background based on type
   const renderBackground = () => {
     if (backgroundType === 'video') {
-  return (
+      return (
         <div className="fixed inset-0 z-0 overflow-hidden">
+          {/* Fallback image that shows while video loads */}
+          <div 
+            className={`absolute inset-0 bg-cover bg-center transition-opacity duration-500 ${isVideoLoaded ? 'opacity-0' : 'opacity-100'}`}
+            style={{ backgroundImage: `url(${backgroundSettings.video.fallbackImage})` }}
+          />
+          
           <video 
             autoPlay 
             muted 
@@ -728,13 +737,9 @@ export default function Home() {
             playsInline
             className="absolute min-w-full min-h-full object-cover pixelated" 
             poster={backgroundSettings.video.fallbackImage}
+            onLoadedData={() => setIsVideoLoaded(true)}
           >
             <source src={backgroundSettings.video.src} type="video/mp4" />
-            <img 
-              src={backgroundSettings.video.fallbackImage} 
-              alt="Background" 
-              className="absolute min-w-full min-h-full object-cover"
-            />
           </video>
           <div className="absolute inset-0 bg-black/50"></div>
           <div className="absolute inset-0 pointer-events-none bg-grid-overlay opacity-10"></div>
