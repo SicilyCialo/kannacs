@@ -9,7 +9,7 @@
 /coverage
 
 # next.js
-/.next/
+# /.next/  # Commented out to include build files in repository
 /out/
 
 # production
