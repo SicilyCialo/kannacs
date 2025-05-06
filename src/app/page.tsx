@@ -722,7 +722,7 @@ export default function Home() {
   // Render the appropriate background based on type
   const renderBackground = () => {
     if (backgroundType === 'video') {
-      return (
+  return (
         <div className="fixed inset-0 z-0 overflow-hidden">
           <video 
             autoPlay 
@@ -3645,6 +3645,9 @@ export default function Home() {
       </motion.div>
     </div>
   );
+
+  // Update the title to include the domain
+  const siteTitle = "KannaCS | kannacs.vr.lt";
 
   return (
     <main 
