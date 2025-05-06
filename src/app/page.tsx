@@ -724,12 +724,6 @@ export default function Home() {
     if (backgroundType === 'video') {
       return (
         <div className="fixed inset-0 z-0 overflow-hidden">
-          {/* Fallback image that shows while video loads */}
-          <div 
-            className={`absolute inset-0 bg-cover bg-center transition-opacity duration-500 ${isVideoLoaded ? 'opacity-0' : 'opacity-100'}`}
-            style={{ backgroundImage: `url(${backgroundSettings.video.fallbackImage})` }}
-          />
-          
           <video 
             autoPlay 
             muted 
@@ -737,7 +731,6 @@ export default function Home() {
             playsInline
             className="absolute min-w-full min-h-full object-cover pixelated" 
             poster={backgroundSettings.video.fallbackImage}
-            onLoadedData={() => setIsVideoLoaded(true)}
           >
             <source src={backgroundSettings.video.src} type="video/mp4" />
           </video>
